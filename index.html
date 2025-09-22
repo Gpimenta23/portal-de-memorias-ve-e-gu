@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Você, Meu Amor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f3f2;
+            color: #4b4b4b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section-card {
+            background-color: #fcfcfc;
+            border: 1px solid #f0e8e6;
+            border-radius: 1.25rem;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+        }
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+        .image-gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+        }
+        .pixel-art-ticket-new {
+            background-color: #a72f2f;
+            border: 2px solid #4b4b4b;
+            position: relative;
+            max-width: 300px;
+            margin: 0 auto;
+            cursor: pointer;
+            text-align: center;
+            padding: 1.5rem 2rem;
+            box-shadow: 4px 4px 0px #4b4b4b;
+            font-weight: bold;
+            overflow: hidden;
+            transition: transform 0.2s ease-in-out;
+            clip-path: polygon(
+                0% 0%, 100% 0%, 100% 25%, 95% 28%, 100% 31%, 100% 46%, 95% 49%, 100% 52%, 100% 75%, 100% 100%, 0% 100%, 0% 75%, 5% 72%, 0% 69%, 0% 54%, 5% 51%, 0% 48%, 0% 25%, 5% 22%, 0% 19%
+            );
+        }
+        .pixel-art-ticket-new:hover {
+            transform: scale(1.05);
+        }
+        .ticket-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 2rem;
+            color: #ffc900;
+            margin-bottom: 0.5rem;
+        }
+        .pixel-art-ticket-content-new {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+        .ticket-flash {
+            animation: flash 0.5s ease-in-out;
+        }
+        @keyframes flash {
+            0% { box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.8), inset 0 0 15px 5px rgba(255, 255, 255, 0.8); }
+            50% { box-shadow: 0 0 30px 10px rgba(255, 255, 255, 1), inset 0 0 30px 10px rgba(255, 255, 255, 1); }
+            100% { box-shadow: none; }
+        }
+        .spell-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .spell-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .spell-container .wizard-image {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+        .owl-button {
+            background-color: #b58c7e;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 15px 5px rgba(0, 191, 255, 0.5);
+        }
+        .owl-button:hover {
+            transform: scale(1.1);
+            background-color: #9b786c;
+            box-shadow: 0 0 25px 8px rgba(0, 191, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="text-center">
+        <h1 class="text-4xl font-extrabold text-[#7e5c5c] tracking-tight mb-2">Para o meu amor, a distância é só um detalhe.</h1>
+        <p class="text-lg text-[#9b8580] font-light">Um pequeno portal para, quando eu estiver distante, te lembrar o quanto você é especial para mim.</p>
+    </header>
+
+    <!-- Seção de Mensagem Aleatória -->
+    <div class="section-card text-center">
+        <h2 class="text-2xl font-bold text-[#b58c7e] mb-4">Uma mensagem para você</h2>
+        <p id="randomMessage" class="italic text-[#7e5c5c] text-lg transition-opacity duration-1000 opacity-0"></p>
+    </div>
+
+    <!-- Contador de Tempo Juntos -->
+    <div class="section-card text-center">
+        <h2 class="text-2xl font-bold text-[#b58c7e] mb-4">Tempo Juntos</h2>
+        <div class="flex justify-center items-center flex-wrap gap-4 text-center text-2xl font-semibold text-[#7e5c5c]">
+            <div class="p-3 bg-f0e8e6 rounded-lg shadow-sm">
+                <span id="years" class="block font-bold">00</span>
+                <span class="text-sm font-normal text-[#9b8580]">Anos</span>
+            </div>
+            <div class="p-3 bg-f0e8e6 rounded-lg shadow-sm">
+                <span id="days" class="block font-bold">00</span>
+                <span class="text-sm font-normal text-[#9b8580]">Dias</span>
+            </div>
+            <div class="p-3 bg-f0e8e6 rounded-lg shadow-sm">
+                <span id="hours" class="block font-bold">00</span>
+                <span class="text-sm font-normal text-[#9b8580]">Horas</span>
+            </div>
+            <div class="p-3 bg-f0e8e6 rounded-lg shadow-sm">
+                <span id="minutes" class="block font-bold">00</span>
+                <span class="text-sm font-normal text-[#9b8580]">Minutos</span>
+            </div>
+            <div class="p-3 bg-f0e8e6 rounded-lg shadow-sm">
+                <span id="seconds" class="block font-bold">00</span>
+                <span class="text-sm font-normal text-[#9b8580]">Segundos</span>
+            </div>
+        </div>
+        <p class="text-center italic text-[#9b8580] mt-4">E dali em diante, cada segundo valeu a pena!</p>
+    </div>
+
+    <!-- Seção de Música do Spotify -->
+    <div class="section-card">
+        <h2 class="text-2xl font-bold text-[#b58c7e] mb-4">As músicas que gostamos</h2>
+        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6eOx8w7YpYBByDMbgcuDqh?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <p class="text-center text-sm text-[#9b8580] mt-4">Uma seleção especial para embalar nossos momentos.</p>
+    </div>
+
+    <!-- Seção de Fotos -->
+    <div class="section-card">
+        <h2 class="text-2xl font-bold text-[#b58c7e] mb-4">Nossa linha do tempo</h2>
+        <p class="text-center italic text-[#9b8580] mb-4">Veja como evoluímos com o tempo!</p>
+        <div class="image-gallery">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczNFAJIPJ0DPXAQIBRN50NWPl2_e9TpsZXD_IOlue0rB-m7EM3BQi3SFXQQqZY3_W8-f7H0qHp2ILv4c2c0v5fKgs2JWjpELgwY5LcPqXRPsvTr-ZzbA7n-pzGM8gJ3EKIPhTahGG8AORa5GPuXye4S1Mw=w505-h884-s-no-gm?authuser=0" alt="Foto 1: Início da nossa jornada">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczPWMeTIrkiksM3m12wSxwaHJqk91r3K4noUR5w7c5QruwKjB6WxL875T4eJrTd5yZfESeRZRYSmsQTVRVxadUelvSAuuzegpMDuBhrvLu0st0Pyg0S-Aj8vLBGTsQTAU0hS3Fznwg1TDRy0ODgiAg9Ljg=w1181-h884-s-no-gm?authuser=0" alt="Foto 2: Nossos primeiros momentos">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczO3lFqH9_VQIRVHt5--WmqsjOGwJMsix9XuSIXKl_0HzulkLKRUD3teRwOtBkZ2h64NemxhDGf9UPIFVWE79V22X6NkEzANOoMtwILMWMyw7W_b29MIEi8vjEvlRN7UJhe9ahPs5dLdcnogxwJDkqb7Fw=w661-h884-s-no-gm?authuser=0" alt="Foto 3: Novas aventuras">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczM3Z25d1zncw6Kp4TUX096rOoqD-jLkD1tsH6-NfbrhHHXa4rr4e-NrQqXRQ4aXXwJuDI68PfPvJ05BU87F3V2oTOxto7GA6-s2cuXn8NLoDWoDNjVW_Mlq-QcKTCvmunPBp-7CfwMEiKk6pYG4TTQEyw=w661-h884-s-no-gm?authuser=0" alt="Foto 4: Momentos especiais">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczOcN6_sFbTVR-q_fi7vlC21X-Etrh8xTnzMqIqRYnaJMeRfVRFL97KY0qpkd1rcL3fNS30qaCkGiuT7n-njC7up7I_tPb1eovGOxWE8G9_QGs8iM-J7DbXmh0-134PfTf89TnsMDClLmSDejRookUVR7g=w498-h884-s-no-gm?authuser=0" alt="Foto 5: Crescendo juntos">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczOKffO8HttQctdguo4JOPPAEGDO8Z0WLof8O5o6WfhpkEzOuMgDOqsSPhoWnhuahBYsgolhJX9kIIgp3IRpV24Ns8CmxSdHC99sw-vrhp0AWUDaQIofXhP4LzSspjgh5tbXILdC2AeEx7klaGxXffUWzg=w661-h884-s-no-gm?authuser=0" alt="Foto 6: Nossas risadas">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczO3N-_pcjPN4FBGXFcm-zG--9qvop1VmaY74exmab3rFBlt9fgn-pWgQOaddo1QjYBYS1o_8N75JU34BzR2LISd90YZHWmvnEBcCo07iwWP9uEsio5wOaVSwii1smgSGIsBwbgii9wxyvLlyqdYl1zoDg=w661-h884-s-no-gm?authuser=0" alt="Foto 7: Celebrando o amor">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczMiV_oZragXlgz3hiOrcMKMPj-tgkMuSn-ky5hzNmQ-Mn4_AL4G5v9R07wbk7rZaMNeGb1ozzhQEzmk8aedn58GcLsmZic_uq5jRFaHz_vKBueR8vlRP0wc_w0QWEIi2Vy6OOsg1_KNBJSdo3vYkRhNnQ=w661-h884-s-no-gm?authuser=0" alt="Foto 8: Mais memórias felizes">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczO_90MheYTQ4ce_t8nSy0V1dKowVKw_if31OxiVfn4kthRi6QcnKEf3c7aTxHywfuEp5sMWdHSdN31eV62_Lp5E6PdWeGsh2pBiDOyVDAS8mthEzjdowJLDgralkviSCA47F6pXf5QZJvikRwLINty_Ow=w661-h884-s-no-gm?authuser=0" alt="Foto 9: A felicidade do dia a dia">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczOSKCnfzcH47qG4YNJn9CJ7eHRY3_G-J3bUux_jH0Hxm3_hiOwN3JspdjWHdI_igdqMnVhDcO7D_BOobFfKsEYrqdeY9AkSj-gJ0ujRjcZf5-b5fpofqR1Lp1iJQQfUUSrENw0wtryT6AEEts30V8Pyog=w664-h884-s-no-gm?authuser=0" alt="Foto 10: Nossos momentos inesquecíveis">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczMHwTT4ZZ2pXPC3rBV8XOJ6H5CvWT2qpO_beff7TBk_FboYeyuFQIqsPE3CzKo0XMS91kR1d_zxOxwKFTQAFuNxfAszYpP6h5lXHmAJuWM6ZHGD9qKMb50C2ejLDwKe_WjoXMTi_mP5PfZa7cMnyZVe1w=w664-h884-s-no-gm?authuser=0" alt="Foto 11: Mais momentos juntos">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczNQ0oHz69tL3Yl68oaEpRl6URqu690AgMWhe8ip5ljHUrsA8IAIaODMBOX3CPt6GmX2WRpI2Wysvw6BgVD-6xYfit9PGvzk2p7Lf4nwdQzvUlToaMu24tEYTiot39pH4E-3jPhFstMPtEsJb4uHaMqxFg=w498-h884-s-no-gm?authuser=0" alt="Foto 12: A cada dia, um novo capítulo">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczNvb0JnWgMGtyVPLqyy1FaUxB1rTMbwsb_JgsCEWz21-9RFVkKfCrSydVmoZuk8RDb6z6ZUkahYjWqtRSvZwDJnTwFyymQEpGEAod4genF7Y_9QObqCEIG4YzjaVvZ6Wij7YdgYsHo2Ol4bpefxf7G36g=w661-h884-s-no-gm?authuser=0" alt="Foto 14: Evoluindo juntos">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczPn7YD677EWyFcraqBxcURS38anW22f6g08FEawgOR7JADNqf6COzdKv8XA5cLfD6m_pvqmoZ9ZXbxvtmHVbzvkhW7WWWRnUnGmLDCMjPUWOfCOkCAjyBnKLPIzKurixB-R8Xv2uPfjL5wnKhFDSMRz8g=w663-h884-s-no-gm?authuser=0" alt="Foto 15: Conectados pela felicidade">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczPzXBPAoKbdiUxE8x8fH-lvMAA7UMkEFVoKDFals1M1qJJERbyJD1S4s2T0RIj8UJX07eKH1szAwtBSMD-Qyx9_PfYK5FqgolT7_j_1zH7NsyfVyzNUKqSkw6uNKUsGK-Ba5idsyBO9jOi9x0DvA7HWeg=w664-h884-s-no-gm?authuser=0" alt="Foto 16: O amor em cada clique">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczOnhiQFTmUr3cJ-E-0vrQqHGsS9YX3wC3Nf3T-g0lFa2XzKR9vmB2XDUfa5L_cUoa2Q8G2uDE68DU-ApZQQnTYK9NP1X3_Jt8cHgcIE0il3TC5K7M_SrradAeOypZl59zVqXu0sbbggg_M01k6ROz1sTw=w1179-h884-s-no-gm?authuser=0" alt="Foto 17: Nosso futuro">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczOVqojwqQTaOXBPsy9GUKqjOUJ0P5N6dMTdj9lup93X7_uU7wlrzvZutLbOwbvhPQ5mavUhlAMafM0R9-ANMDwY2_1OTiGIiN-WgO1k1Gte54-3NFq9ohU_eascAIyXS6bYsF-s77U5c708UAMv2lAdEw=w663-h884-s-no-gm?authuser=0" alt="Foto 18: Evolução do nosso amor">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczMo8NOHrr2r0pq3yTDxAhjyMp6kFdT6KVXRpgrBuob4HAZiSI2wXLRhoRQv8KBP_IZsDPTnjUi2MGUWr94-Z11z4eQPiwbQ3rNY4_FsPSqDtrD6YLU3lfiqJ7Lpr5fDVWBQIWqhKyhrebM08u_x5fHiJw=w663-h884-s-no-gm?authuser=0" alt="Foto 19: Cada foto, uma nova lembrança">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczMi-A3e0y8qkKKH_26LHY-THlJ5XuO0TKT4bRGIJp36AUrZI9KfdZL0sAm5IPwN1rrUuz13jLTE5vpzTEu27w3Dmdd2B7HLNVYXs7qK9dQRFfO1Fgk8dv6VdoXk801Bqsay8LDr7-7yvQjKmnFB76gVhg=w663-h884-s-no-gm?authuser=0" alt="Foto 20: Juntos, sempre">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczMBbOqBf5i5DkVnHDTJgfVvBsSMu2Q-H_xBCfMkhHZLTMGKLwx-iDHKvRCL3G__z80XEZxLO5D9G7VdOTnIRw0woQeVOMoPckEPbrB7OUNCXsi76GQT6p_odSUm18CHOtvCzq-2REKeJm8dNvfjp1uyBQ=w1179-h884-s-no-gm?authuser=0" alt="Foto 22: O nosso para sempre">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczOidSF-G3tYUdSwWDgI5w4AsTsoY7caXzoaHpW6IL6g-E5RxRXNm-mpj2tlmitrxP6_ZSTGp_J2dv5KkjohZpqXmb5O0nT3DC9bKavOP82WTiDiafBYhl0DYFqp_9EajI56Dbj1-kl4XIyNH3v7qjA1PA=w663-h884-s-no-gm?authuser=0" alt="Foto 24: A cada dia, um novo amor">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczOzoOJDZUYYOPRe44_WpEF-u0DprUhYnFzTzfcl9fkq53Hi5LlKX1zuRGKMPctvO6Wpo47yAZUg8lk7eE8ZFp3Vaxa1HePGCOgAXj0MDFE2dROBKheb91vgy207yQ93ByHZ832QKj3pKRRMS8Ptmx27bA=w663-h884-s-no-gm?authuser=0" alt="Foto 24: Shopping">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczOYR6NmLuyHZCO6QotVnarb9fzHBF9KEVMtZ5rCK_26O0ZogHT-V7qKDM4VtvkioVgc0p3FqHwJ0WlL7UEYJE1hwDT1IxGZ8kDliv2uhOO9tv9cKObNq3S-WvCTRmtfNH_tv7MezIzKO9N7gmCnczL8lQ=w836-h627-s-no-gm?authuser=0" alt="Foto 25: Acamp1">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczP1frfT5yOPd1PhQDr7iu288rpBivYG_28ztHWcxH7uufGOR9Xsc2uamdTDz6PalvN-4jqlmzfG-YcVKx3UOPRqZq2OwaJwgYl1lkD6SPBuDAbj0mkNgPxlYKK-xrvxB0tBYcVEqLCc_yM087e7Vu4OZQ=w668-h884-s-no-gm?authuser=0" alt="Foto 26: Barraca">
+        </div>
+    </div>
+
+    <!-- Seção de Vale Surpresa -->
+    <div class="section-card text-center">
+        <h2 class="text-2xl font-bold text-[#b58c7e] mb-4">Retire seu vale</h2>
+        <div id="ticketContainer" class="flex flex-col items-center">
+            <div id="pixelTicket" class="pixel-art-ticket-new">
+                <span class="ticket-title">VALE</span>
+                <span id="ticketMessage" class="pixel-art-ticket-content-new mt-2">Clique para revelar</span>
+            </div>
+            <button id="exportTicketBtn" class="mt-4 px-6 py-2 bg-[#b58c7e] text-white font-semibold rounded-full shadow-md hover:bg-[#9b786c] transition-colors duration-200">
+                Exportar Bilhete
+            </button>
+        </div>
+    </div>
+    
+    <!-- Seção da Coruja Eletrônica -->
+    <div class="section-card text-center">
+        <h2 class="text-2xl font-bold text-[#b58c7e] mb-4">
+            Quando sentir saudade, aqui está um feitiço pra me enviar uma coruja eletrônica:
+        </h2>
+        <div class="spell-section flex items-center justify-center gap-6">
+            <a href="https://facetime.apple.com/join#v=1&p=obPNOZSNEfCO5ZLqP56AIw&k=CC6WeFBJiTD-cuWnkuDzYaxYolGh5mdAxJT9kDprNFo" class="owl-button">
+                Enviar Coruja!
+            </a>
+        </div>
+    </div>
+
+    <!-- Seção do Recado -->
+    <div class="section-card text-center">
+        <h2 class="text-2xl font-bold text-[#b58c7e] mb-4">Um recado:</h2>
+        <p class="italic text-[#7e5c5c] text-lg">
+            Atualizado em: 22/09/2025
+            <br><br>
+            Vê, eu te amo, obrigado por ser tão incrível. Estou aqui acabando esse presentinho, pensando em você de forma intensa, vívida, e sentindo muito a sua falta. 
+            Depois do final de semana perfeito que tivemos, eu só penso em você, a cada segundo, a cada coisa que faço, a cada pausa e sinto seu cheiro, me lembro da sensação boa e do gelo na barriga de felicidade que senti ao ver você atrás de mim de surpresa na sexta.
+            Mais uma vez, obrigado, obrigado por ser tudo pra mim!
+            Atenciosamente, amorosamente e de todo coração, Gu.
+        </p>
+    </div>
+</div>
+
+<script>
+    const startDate = new Date("2022-09-18T18:00:00");
+    
+    function updateCounter() {
+        const now = new Date();
+        const diff = now - startDate;
+
+        if (diff < 0) {
+            document.getElementById('years').innerText = '00';
+            document.getElementById('days').innerText = '00';
+            document.getElementById('hours').innerText = '00';
+            document.getElementById('minutes').innerText = '00';
+            document.getElementById('seconds').innerText = '00';
+            return;
+        }
+
+        const seconds = Math.floor(diff / 1000) % 60;
+        const minutes = Math.floor(diff / (1000 * 60)) % 60;
+        const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const years = Math.floor(days / 365);
+        const remainingDays = days % 365;
+
+        document.getElementById('years').innerText = years.toString().padStart(2, '0');
+        document.getElementById('days').innerText = remainingDays.toString().padStart(2, '0');
+        document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+    }
+
+    function displayRandomMessage() {
+        const messages = [
+            `"A saudade é a prova de que o passado valeu a pena e de que o futuro tem motivos para acontecer."`,
+            `"Estar longe de você me ensinou o que é a verdadeira espera."`,
+            `"Nosso primeiro abraço foi o início de uma vida inteira."`
+        ];
+        
+        const randomIndex = Math.floor(Math.random() * messages.length);
+        const messageElement = document.getElementById('randomMessage');
+        messageElement.textContent = messages[randomIndex];
+        // Fade in a mensagem para um efeito mais suave
+        setTimeout(() => messageElement.style.opacity = '1', 100);
+    }
+
+    // Funcionalidade do Bilhete de Vale
+    const ticketMessages = [
+        "1.254 beijinhos",
+        "um abraço longo",
+        "um beijão molhado",
+        "500 selinhos",
+        "beijos por todo o rostinho",
+        "um rolê gastronômico a dois",
+        "um jantar feito por mim",
+        "perípécias, hehe",
+        "um acampamento juntos",
+        "chamego",
+        "muito amor e carinho",
+        "uma conversa filosófica",
+        "uma piadinha indescente",
+        "uma conversa pra desabafar",
+        "safarinho (um carinho safadinho) rs",
+        "um miojo quentinho",
+        "cafuné",
+        "assistir um filme juntinhos",
+        "este vale é uma carta em branco pra você decidir :)"
+    ];
+
+    const pixelTicket = document.getElementById('pixelTicket');
+    const ticketMessage = document.getElementById('ticketMessage');
+    const exportTicketBtn = document.getElementById('exportTicketBtn');
+
+    pixelTicket.addEventListener('click', () => {
+        pixelTicket.classList.add('ticket-flash');
+        setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * ticketMessages.length);
+            ticketMessage.textContent = ticketMessages[randomIndex];
+            pixelTicket.classList.remove('ticket-flash');
+        }, 500);
+    });
+
+    exportTicketBtn.addEventListener('click', () => {
+        html2canvas(pixelTicket).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'nosso_vale_surpresa.png';
+            link.href = canvas.toDataURL();
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    });
+
+    // Chama as funções no carregamento da página
+    updateCounter();
+    setInterval(updateCounter, 1000);
+    displayRandomMessage();
+</script>
+
+</body>
+</html>
